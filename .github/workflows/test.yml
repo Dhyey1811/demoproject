@@ -22,9 +22,17 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: |
-          
-          npm install
+        run: npm ci
+
+      - name: Fix react-scripts Permissions
+        run: chmod +x node_modules/.bin/react-scripts
 
       - name: Run Tests
-        run: npm test -- --watchAll=false
+        run: npm test -- --watchAll=false --coverage
+
+      - name: Upload Coverage Report
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
