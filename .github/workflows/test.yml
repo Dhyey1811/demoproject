@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd demoproject
+          
           npm install
 
       - name: Run Tests
